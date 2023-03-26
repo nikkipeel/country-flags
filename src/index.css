@@ -11,7 +11,7 @@ body {
   max-width: 1000px;
 }
 
-button {
+.cf-button {
   background-color: #6b93d6;
   border-radius: 4px;
   border: none;
@@ -28,7 +28,12 @@ button {
 
 button:hover,
 button:focus {
-  filter: brightness(105%);
+  color: #6b93d6;
+  background-color: transparent;
+  border: 2px solid #6b93d6;
+}
+
+button:focus {
   outline: 2px solid #6b93d6;
   outline-offset: 3px;
 }

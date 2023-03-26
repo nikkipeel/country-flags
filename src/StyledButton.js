@@ -1,7 +1,7 @@
 import React from "react";
 
 const StyledButton = ({ text, onClick, type }) => (
-  <button type={type || "button"} onClick={onClick}>
+  <button class="cf-button" type={type || "button"} onClick={onClick}>
     {text}
   </button>
 );
