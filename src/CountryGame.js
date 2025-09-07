@@ -36,7 +36,7 @@ class CountryGame extends Component {
     this.nextQuestion = this.nextQuestion.bind(this);
   }
   componentDidMount() {
-    fetch("https://restcountries.com/v2/all")
+    fetch("https://restcountries.com/v3.1/all?fields=name,flags")
       .then((resp) => resp.json())
       .then((countries) => {
         const correctOption = Math.floor(Math.random() * countries.length);
@@ -89,21 +89,29 @@ class CountryGame extends Component {
     let { countries, correctOption, options, questionState } = this.state;
     let output = <div>Loading...</div>;
     if (correctOption !== undefined) {
-      const { flag, name } = countries[correctOption];
+      const { flags, name } = countries[correctOption];
+      const answerText = (name && (name.common || name.official)) || "";
+      const flagUrl = (flags && (flags.svg || flags.png)) || "";
       let opts = options.map((opt) => {
+        const country = countries[opt];
+        const optionName =
+          (country &&
+            country.name &&
+            (country.name.common || country.name.official)) ||
+          "";
         return {
           id: opt,
-          name: countries[opt].name,
+          name: optionName,
         };
       });
       output = (
         <FlagQuestion
-          answerText={name}
+          answerText={answerText}
           onGuess={this.onGuess}
           onNext={this.nextQuestion}
           options={opts}
           questionState={questionState}
-          flag={flag}
+          flag={flagUrl}
         />
       );
     }
